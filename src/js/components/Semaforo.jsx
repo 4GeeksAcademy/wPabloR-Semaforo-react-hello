@@ -15,8 +15,17 @@ const Semaforo = () => {
         boxShadow: color === currentColor ? `0 0 15px ${currentColor}` : "none",
     });
 
+    const randomColor = () => {
+        let colors = [`red`, `orange`, `green`];
+
+        return colors[Math.floor(Math.random() * colors.length)]
+    };
+    
+
 
     return (
+        <div>
+
     <div
       style={{
         width: "100px",
@@ -30,6 +39,9 @@ const Semaforo = () => {
             <div style={lightStyle(`red`)} onClick={() => setColor(`red`)}></div>
             <div style={lightStyle(`orange`)} onClick={() => setColor(`orange`)}></div>
             <div style={lightStyle(`green`)} onClick={() => setColor(`green`)}></div>
+        </div>
+
+            <button className="btn btn-primary m-5" onClick={() => setColor(randomColor())}>Random color</button>
 
         </div>
     );
