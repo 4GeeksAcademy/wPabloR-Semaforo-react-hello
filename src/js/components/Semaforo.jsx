@@ -2,8 +2,9 @@ import React, { useState } from "react";
 
 const Semaforo = () => {
 
-    const [colors, setColors] = useState([`red`, `orange`, `green`])
+    const [colors, setColors] = useState([`red`, `orange`, `green`]);
     const [currentColor, setCurrentColor] = useState(`red`);
+    const [newColor, setNewColor] = useState("");
 
     const lightStyle = (color) => ({ 
         backgroundColor: currentColor === color ? color : `gray`,
@@ -25,8 +26,18 @@ const Semaforo = () => {
         if (!colors.includes(`purple`)){
             setColors([...colors, `purple`])
         }
+    };
+
+    const handleInputChange = (e) =>{
+        setNewColor(e.target.value)
     }
 
+    const addNewColor = () =>{
+        if (newColor.trim() !== "" && !colors.includes(newColor.toLowerCase())){
+            setColors([...colors, newColor.toLowerCase()])
+        }
+        setNewColor("")
+    }
 
     return (
         <div>
@@ -59,8 +70,14 @@ const Semaforo = () => {
             <button className="btn btn-primary m-5" onClick={() => setCurrentColor(randomColor())}>Random color</button>
             <button className="btn btn-primary m-5" onClick={addPurple}>Add purple</button>
 
+            <div>
+            <input className="input-group w-25 m-auto my-2" placeholder="Type the new color" value={newColor} onChange={handleInputChange}></input>
+            <button className="btn btn-primary m-2" onClick={addNewColor}>Add new color</button>
+            </div>
         </div>
     );
 };
 
 export default Semaforo
+
+//Curioseando y practicando cosas he añadido también un input para que se pueda introducir un color nuevo :)
