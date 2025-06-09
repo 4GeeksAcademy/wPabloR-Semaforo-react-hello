@@ -2,25 +2,30 @@ import React, { useState } from "react";
 
 const Semaforo = () => {
 
-    const [color, setColor] = useState(`red`);
+    const [colors, setColors] = useState([`red`, `orange`, `green`])
+    const [currentColor, setCurrentColor] = useState(`red`);
 
-    const lightStyle = (currentColor) => ({ 
-        backgroundColor: color === currentColor ? currentColor : `gray`,
+    const lightStyle = (color) => ({ 
+        backgroundColor: currentColor === color ? color : `gray`,
         width: `60px`,
         height: `60px`,
         borderRadius: `50%`,
         margin: `10px auto`,
         cursor: `pointer`,
         transition: "background-color 0.3s ease",
-        boxShadow: color === currentColor ? `0 0 15px ${currentColor}` : "none",
+        boxShadow: currentColor === color ? `0 0 15px ${color}` : "none",
     });
 
     const randomColor = () => {
-        let colors = [`red`, `orange`, `green`];
 
         return colors[Math.floor(Math.random() * colors.length)]
     };
     
+    const addPurple = () => {
+        if (!colors.includes(`purple`)){
+            setColors([...colors, `purple`])
+        }
+    }
 
 
     return (
@@ -36,12 +41,23 @@ const Semaforo = () => {
         marginTop: `20px`
       }}
     >
-            <div style={lightStyle(`red`)} onClick={() => setColor(`red`)}></div>
+            {/* <div style={lightStyle(`red`)} onClick={() => setColor(`red`)}></div>
             <div style={lightStyle(`orange`)} onClick={() => setColor(`orange`)}></div>
-            <div style={lightStyle(`green`)} onClick={() => setColor(`green`)}></div>
+            <div style={lightStyle(`green`)} onClick={() => setColor(`green`)}></div> */}
+
+            {colors.map((color) => (
+                <div
+                key={color}
+                style={lightStyle(color)}
+                onClick={()=> setCurrentColor(color)}
+                ></div>
+                    
+            ))}
+
         </div>
 
-            <button className="btn btn-primary m-5" onClick={() => setColor(randomColor())}>Random color</button>
+            <button className="btn btn-primary m-5" onClick={() => setCurrentColor(randomColor())}>Random color</button>
+            <button className="btn btn-primary m-5" onClick={addPurple}>Add purple</button>
 
         </div>
     );
